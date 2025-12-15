@@ -1,0 +1,2 @@
+allow vold mnt_vendor_file:dir r_dir_perms;
+allow vold same_process_hal_file:file { read open map getattr execute };

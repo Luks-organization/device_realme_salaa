@@ -1,0 +1,4 @@
+binder_use(surfaceflinger)
+hal_client_domain(surfaceflinger, hal_mtk_mmagent)
+
+allow surfaceflinger mtk_hal_mmagent:binder call;

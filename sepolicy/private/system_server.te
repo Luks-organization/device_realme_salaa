@@ -1,0 +1,6 @@
+allow system_server config_gz:file r_file_perms;
+allow system_server proc_ccci_lp_mem:file r_file_perms;
+allow system_server proc_partition:file r_file_perms;
+allow system_server isolated_compute_app:unix_stream_socket getopt;
+
+get_prop(system_server, wifi_hal_prop)

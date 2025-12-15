@@ -1,0 +1,2 @@
+allow ueventd tmpfs:blk_file { getattr setattr relabelfrom };
+allow ueventd vendor_configs_file:file r_file_perms;
