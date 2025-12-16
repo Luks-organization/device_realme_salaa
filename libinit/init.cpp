@@ -4,8 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include "init_salaa.h"
-
 #include <vector>
 #include <cstdlib>
 #include <fstream>
@@ -47,7 +45,7 @@ std::vector<string> ro_props_default_source_order = {
     "vendor_dlkm.",
 };
 
-void property_override(const char* prop, const char* value, bool add) {
+void property_override(const char* prop, const char* value, bool add = true) {
     prop_info* pi = (prop_info*)__system_property_find(prop);
     if (pi)
         __system_property_update(pi, value, strlen(value));
@@ -55,9 +53,8 @@ void property_override(const char* prop, const char* value, bool add) {
         __system_property_add(prop, strlen(prop), value, strlen(value));
 }
 
-void set_ro_build_prop(const string& prop, const string& value, bool product) {
+void set_ro_build_prop(const string& prop, const string& value, bool product = true) {
     string prop_name;
-
     for (const auto& source : ro_props_default_source_order) {
         if (product)
             prop_name = "ro.product." + source + prop;
@@ -135,23 +132,23 @@ void set_device_props(void) {
                 break;
             case 90:
             case 92:
-                device="RMX2156L1";
-                model="RMX2156";
-                fingerprint="realme/RMX2156/RMX2156L1:12/SP1A.210812.016/Q.174ebd4_fa4d:user/release-keys";
-                marketname="realme Narzo 30 4G";
+                device = "RMX2156L1";
+                model = "RMX2156";
+                marketname = "realme Narzo 30 4G";
+                fingerprint = "realme/RMX2156/RMX2156L1:12/SP1A.210812.016/Q.174ebd4_fa4d:user/release-keys";
                 break;
             case 143:
-                device="RMX2161L1";
-                model="RMX2161";
-                fingerprint="realme/RMX2161/RMX2161L1:12/SP1A.210812.016/Q.d5ef75_5f7:user/release-keys";
-                marketname="realme Narzo 20 Pro";
+                device = "RMX2161L1";
+                model = "RMX2161";
+                marketname = "realme Narzo 20 Pro";
+                fingerprint = "realme/RMX2161/RMX2161L1:12/SP1A.210812.016/Q.d5ef75_5f7:user/release-keys";
                 break;
             case 145:
             case 147:
-                device="RMX2163L1";
-                model="RMX2163";
-                fingerprint="realme/RMX2163/RMX2163L1:12/SP1A.210812.016/Q.bf75e7-1:user/release-keys";
-                marketname="realme Narzo 20 Pro";
+                device = "RMX2163L1";
+                model = "RMX2163";
+                marketname = "realme Narzo 20 Pro";
+                fingerprint = "realme/RMX2163/RMX2163L1:12/SP1A.210812.016/Q.bf75e7-1:user/release-keys";
                 break;
             default:
                 LOG(ERROR) << "Unknown operator found: " << operator_code;

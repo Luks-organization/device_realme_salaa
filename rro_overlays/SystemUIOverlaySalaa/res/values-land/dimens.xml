@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     SPDX-FileCopyrightText: 2019 The Android Open Source Project
-     SPDX-FileCopyrightText: 2025 The LineageOS Project
-     SPDX-License-Identifier: Apache-2.0
+/**
+ * Copyright (c) 2019, The Android Open Source Project
+ * Copyright (c) 2025, The LineageOS Project
+ * SPDX-License-Identifier: Apache-2.0
+ */
 -->
 <resources>
     <!-- The padding around the statusbar, in landscape -->

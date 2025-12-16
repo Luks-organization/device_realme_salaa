@@ -1,9 +1,3 @@
-#
-# SPDX-FileCopyrightText: 2019 The Android Open Source Project
-# SPDX-FileCopyrightText: 2025 The LineageOS Project
-# SPDX-License-Identifier: Apache-2.0
-#
-
 # Unzip bloobs
 unzip vendor/realme/salaa/radio/md1img.zip -d vendor/realme/salaa/radio && rm vendor/realme/salaa/radio/md1img.zip
 unzip vendor/realme/salaa/proprietary/odm/lib64/libstfaceunlockppl.zip -d vendor/realme/salaa/proprietary/odm/lib64 && rm vendor/realme/salaa/proprietary/odm/lib64/libstfaceunlockppl.zip

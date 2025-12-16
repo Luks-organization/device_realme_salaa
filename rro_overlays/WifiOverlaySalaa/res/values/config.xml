@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     SPDX-FileCopyrightText: 2019 The Android Open Source Project
-     SPDX-FileCopyrightText: 2025 The LineageOS Project
-     SPDX-License-Identifier: Apache-2.0
+/*
+ * SPDX-FileCopyrightText: 2019 The Android Open Source Project
+ * SPDX-FileCopyrightText: 2025 The LineageOS Project
+ * SPDX-License-Identifier: Apache-2.0
+ */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
     <!-- boolean indicating whether the WiFi chipset has 5GHz band support.
          Note: This config is replacing the config_wifi_dual_band_support
          since more bands may now be supported (such as 6GHz), the naming dual_band
@@ -73,5 +74,4 @@
          1: verbose logging on by default for userdebug/eng
          2: verbose logging on by default for all builds -->
     <integer translatable="false" name="config_wifiVerboseLoggingAlwaysOnLevel">0</integer>
-
 </resources>

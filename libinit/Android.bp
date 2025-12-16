@@ -6,20 +6,19 @@
 
 cc_library_static {
     name: "libinit_salaa",
-    export_include_dirs: ["include"],
     recovery_available: true,
     srcs: [
-        "init_salaa.cpp"
+        "init.cpp"
     ],
     include_dirs: [
-        "system/core/init"
+        "system/core/init",
     ],
     shared_libs: [
         "libbase",
         "liblog", 
         "libfs_mgr",
     ],
-    cflags: [
-        "-Wno-unused-parameter",
+    header_libs: [
+        "libbase_headers",
     ],
 }

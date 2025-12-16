@@ -22,4 +22,5 @@
 ## Device Picture (Realme 7) 
 ![](https://fdn2.gsmarena.com/vv/pics/realme/realme-7-1.jpg)
 
+Copyright (C) 2019 The Android Open Source Project
 Copyright (C) 2025 The LineageOS Project
