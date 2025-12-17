@@ -57,12 +57,12 @@ BOARD_TEE_VARIANT ?= trustonic
 BOARD_HAVE_MTK_FM := true
 
 # ART
-ifeq ($(TARGET_BUILD_VARIANT),user)
-ART_BUILD_TARGET_NDEBUG := true
-ART_BUILD_TARGET_DEBUG := false
-ART_BUILD_HOST_NDEBUG := true
-ART_BUILD_HOST_DEBUG := false
-endif
+#ifeq ($(TARGET_BUILD_VARIANT),user)
+#ART_BUILD_TARGET_NDEBUG := true
+#ART_BUILD_TARGET_DEBUG := false
+#ART_BUILD_HOST_NDEBUG := true
+#ART_BUILD_HOST_DEBUG := false
+#endif
 
 # Kernel Configuration
 BOARD_KERNEL_BASE := 0x40078000
@@ -116,7 +116,7 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 452984832       # ~432 MB
 BOARD_SUPER_PARTITION_SIZE := 8053063680           # ~7.5 GB
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
--include vendor/infinity/config/BoardConfigReservedSize.mk
+-include vendor/lineage/config/BoardConfigReservedSize.mk
 
 # Dynamic Partitions Configuration
 BOARD_SUPER_PARTITION_GROUPS := main

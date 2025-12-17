@@ -181,9 +181,3 @@ ro.iorapd.enable=false
 
 # System properties
 ro.product.property_source_order=odm,vendor,product,system_ext,system
-
-# InfinityX phoneinfo props
-ro.infinity.battery=5000 mAh
-ro.infinity.camera=48MP + 8MP + 2MP + 2MP
-ro.infinity.display=1080 x 2400, 90Hz
-ro.infinity.soc=Mediatek Helio G95
