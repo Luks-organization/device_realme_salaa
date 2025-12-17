@@ -43,6 +43,7 @@ vendor.usb.product_string                    u:object_r:vendor_variant_prop:s0
 
 # Oplus
 ro.vendor.oplus.market.name                  u:object_r:system_oplus_project_prop:s0
+ro.vendor.oplus.market.enname                u:object_r:system_oplus_project_prop:s0
 
 # PQ
 ro.vendor.mtk_hdr_video_support              u:object_r:vendor_mtk_pq_ro_prop:s0

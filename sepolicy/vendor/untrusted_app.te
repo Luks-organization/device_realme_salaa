@@ -25,4 +25,5 @@ dontaudit untrusted_app sysfs:file r_file_perms;
 dontaudit untrusted_app proc:file r_file_perms;
 dontaudit untrusted_app proc_version:file r_file_perms;
 
+get_prop(untrusted_app, wifi_hal_prop)
 get_prop(untrusted_app, system_oplus_project_prop)

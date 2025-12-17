@@ -175,6 +175,7 @@ void set_device_props(void) {
 
     property_override("ro.vendor.device", device.c_str());
     property_override("ro.product.device", device.c_str());
+    property_override("ro.infinity.device", device.c_str());
     property_override("bluetooth.device.default_name", marketname.c_str());
     property_override("vendor.usb.product_string", marketname.c_str());
     property_override("ro.oplus.market.name", marketname.c_str());

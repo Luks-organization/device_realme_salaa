@@ -8,25 +8,44 @@
   <item name="wifi.on">2.8</item>  <!-- ~3mA -->
   <item name="wifi.active">190</item>  <!-- WIFI data transfer, ~200mA -->
   <item name="wifi.scan">130</item>  <!-- WIFI network scanning, ~100mA -->
+  <item name="audio">0</item> <!-- ~10mA -->
+  <item name="video">0</item> <!-- ~50mA -->
   <item name="camera.flashlight">150</item> <!-- Avg. power for camera flash, ~160mA -->
   <item name="camera.avg">550</item> <!-- Avg. power use of camera in standard usecases, ~550mA -->
   <item name="gps.on">45</item> <!-- ~50mA -->
-  <item name="audio">16.59</item> <!-- ~10mA -->
-  <item name="video">74.85</item> <!-- ~50mA -->
+  <item name="dsp.audio">16.59</item> <!-- ~10mA -->
+  <item name="dsp.video">74.85</item> <!-- ~50mA -->
+  <item name="bluetooth.controller.idle">1.7</item>  <!--new add -->
+  <item name="bluetooth.controller.rx">76</item>  <!--new add  -->
+  <item name="bluetooth.controller.tx">176</item>  <!--new add  -->
+  <item name="bluetooth.controller.voltage">3300</item>  <!--new add -->
   <item name="radio.active">125</item> <!-- ~200mA -->
   <item name="radio.scanning">5.4</item> <!-- cellular radio scanning for signal, ~10mA -->
   <array name="radio.on"> <!-- Strength 0 to BINS-1 -->
       <value>0.2</value> <!-- ~2mA -->
       <value>0.1</value> <!-- ~1mA -->
   </array>
-  <item name="modem.controller.idle">0</item>
-  <item name="modem.controller.rx">0</item>
-  <item name="modem.controller.tx">0</item>
-  <item name="modem.controller.voltage">0</item>
-  <array name="cpu.clusters.cores">
-        <value>6</value>
-        <value>2</value>
+  <item name="modem.controller.idle">2</item>
+  <item name="modem.controller.rx">68</item>
+  <array name="modem.controller.tx"> <!-- Strength 0 to 4 -->
+      <value>105</value>
+      <value>106</value>
+      <value>113</value>
+      <value>147</value>
+      <value>218</value>
   </array>
+  <item name="modem.controller.voltage">800</item>
+  <array name="cpu.clusters.cores">
+      <value>4</value> <!-- cluster 0 has cpu0 -->
+      <value>3</value> <!-- cluster 1 has cpu4, cpu5, cpu6 -->
+      <value>1</value> <!-- cluster 1 has cpu7 -->
+  </array>
+
+    <!-- Different CPU speeds for cluster 0 as reported in
+       /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state.
+
+       There must be one of these for each cluster, labeled:
+       cpu.core_speeds.cluster0, cpu.core_speeds.cluster1, etc... -->
   <array name="cpu.core_speeds.cluster0">
       <value>500000</value>   <!-- 500  MHz CPU speed -->
       <value>600000</value>  <!-- 600 MHz CPU speed -->
@@ -47,6 +66,25 @@
   </array>
 
   <array name="cpu.core_speeds.cluster1">
+      <value>437000</value>   <!--437  MHz CPU speed -->
+      <value>700000</value>   <!--700  MHz CPU speed -->
+      <value>902000</value>   <!--902  MHz CPU speed -->
+      <value>1046000</value>  <!-- 1046 MHz CPU speed -->
+      <value>1162000</value>  <!-- 1162 MHz CPU speed -->
+      <value>1335000</value>  <!-- 1335 MHz CPU speed -->
+      <value>1451000</value>  <!-- 1451 MHz CPU speed -->
+      <value>1537000</value>  <!-- 1537 MHz CPU speed -->
+      <value>1624000</value>  <!-- 1624 MHz CPU speed -->
+      <value>1740000</value>  <!-- 1740 MHz CPU speed -->
+      <value>1855000</value>  <!-- 1855 MHz CPU speed -->
+      <value>1985000</value>  <!-- 1985 MHz CPU speed -->
+      <value>2200000</value>  <!-- 2200 MHz CPU speed -->
+      <value>2354000</value>  <!-- 2354 MHz CPU speed -->
+      <value>2507000</value>  <!-- 2507 MHz CPU speed -->
+      <value>2600000</value>  <!-- 2600 MHz CPU speed -->
+  </array>
+
+  <array name="cpu.core_speeds.cluster2">
       <value>659000</value>   <!--659  MHz CPU speed -->
       <value>921000</value>   <!--921  MHz CPU speed -->
       <value>1108000</value>  <!--1108  MHz CPU speed -->
@@ -65,6 +103,9 @@
       <value>3000000</value>  <!-- 2600 MHz CPU speed -->
   </array>
 
+  <!-- Current at each CPU speed for cluster 0, as per 'cpu.core_speeds.cluster0'.
+       Like cpu.core_speeds.cluster0, there must be one of these present for
+       each heterogeneous CPU cluster. -->
   <array name="cpu.core_power.cluster0">
       <value>30</value>  <!-- ~35mA -->
       <value>42</value>  <!-- ~35mA -->
@@ -85,6 +126,28 @@
   </array>
 
   <array name="cpu.core_power.cluster1">
+      <value>48</value>  <!-- ~60mA -->
+      <value>57</value>  <!-- ~60mA -->
+      <value>71</value>  <!-- ~80mA -->
+      <value>81</value>  <!-- ~100mA -->
+      <value>94</value>  <!-- ~100mA -->
+      <value>109</value>  <!-- ~120mA -->
+      <value>125</value>  <!-- ~120mA -->
+      <value>140</value>  <!-- ~140mA -->
+      <value>165</value>  <!-- ~140mA -->
+      <value>182</value>  <!-- ~170mA -->
+      <value>200</value>  <!-- ~170mA -->
+      <value>215</value>  <!-- ~190mA -->
+      <value>230</value>  <!-- ~190mA -->
+      <value>245</value>  <!-- ~200mA -->
+      <value>260</value>  <!-- ~200mA -->
+      <value>280</value>  <!-- ~200mA -->
+  </array>
+
+  <!-- Current at each CPU speed for cluster 2, as per 'cpu.core_speeds.cluster2'.
+       Like cpu.core_speeds.cluster2, there must be one of these present for
+       each heterogeneous CPU cluster. -->
+  <array name="cpu.core_power.cluster2">
       <value>51</value>  <!-- ~60mA -->
       <value>67</value>  <!-- ~80mA -->
       <value>86</value>  <!-- ~100mA -->
@@ -102,9 +165,6 @@
       <value>350</value>  <!-- ~190mA -->
       <value>400</value>  <!-- ~200mA -->
   </array>
-  <array name="cpu.active.cluster0">
-      <value>100</value>
-  </array>
   <item name="cpu.awake">8</item>
   <item name="cpu.idle">6.5</item>
   <array name="memory.bandwidths">
@@ -114,8 +174,9 @@
   <item name="wifi.controller.idle">1.35</item>
   <item name="wifi.controller.rx">180</item>
   <item name="wifi.controller.tx">205</item>
-  <array name="wifi.controller.tx_levels" />
-  <item name="wifi.controller.voltage">0</item>
+  <array name="wifi.controller.tx_levels"> <!-- mA -->
+  </array>
+  <item name="wifi.controller.voltage">3300</item>
   <array name="wifi.batchedscan"> <!-- mA -->
       <value>.0002</value> <!-- 1-8/hr -->
       <value>.002</value>  <!-- 9-64/hr -->

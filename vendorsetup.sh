@@ -12,7 +12,7 @@ unzip vendor/realme/salaa/proprietary/odm/lib64/libstfaceunlockppl.zip -d vendor
 #cd packages/apps/Aperture
 #curl https://github.com/Nothing-2A/android_packages_apps_Aperture/commit/9509277efc852ad8bdcce204e0d9cfe104b6d190.patch | git am
 #cd ../../../
-
+#
 # Apply patch
 cd device/realme/salaa/patches && ./apply.sh && cd && cd evo
 
