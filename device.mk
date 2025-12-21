@@ -267,10 +267,6 @@ PRODUCT_PACKAGES += \
     mtk_platform_codecs_config.xml \
     mtk_platform_codecs_whitelist.xml
 
-PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
-
 # NFC
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.2-service \
