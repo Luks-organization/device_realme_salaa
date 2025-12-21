@@ -14,7 +14,7 @@ unzip vendor/realme/salaa/proprietary/odm/lib64/libstfaceunlockppl.zip -d vendor
 #cd ../../../
 #
 # Apply patch
-# cd device/realme/salaa/patches && ./apply.sh && cd && cd evo
+cd device/realme/salaa/patches && ./apply.sh && cd && cd evo
 
 # Make the build faster using ccache
 #export CCACHE_EXEC=/usr/bin/ccache

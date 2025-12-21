@@ -1,3 +1,0 @@
-attribute hal_alarm_qti;
-attribute hal_alarm_qti_client;
-attribute hal_alarm_qti_server;
