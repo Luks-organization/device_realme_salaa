@@ -3,7 +3,7 @@ aaudio.mmap_exclusive_policy=2
 aaudio.mmap_policy=2
 
 # BPF
-#ro.bpf.kver_override=5.4.299
+ro.bpf.kver_override=5.4.299
 
 # Radio FM
 ro.fm.band=1
