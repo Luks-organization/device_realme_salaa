@@ -175,9 +175,6 @@ PRODUCT_PACKAGES += \
     sensors.als_wrapper \
     sensors.oplus_virtual
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
-
 # Fastboot
 PRODUCT_PACKAGES += \
     android.hardware.fastboot-service.example_recovery \
