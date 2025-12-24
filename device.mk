@@ -15,10 +15,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
 # Dynamic Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
-PRODUCT_BUILD_SUPER_PARTITION ?= false
 
 # OTA package
 AB_OTA_UPDATER := false
+PRODUCT_VIRTUAL_AB_OTA := false
 
 PRODUCT_SOONG_NAMESPACES += \
     bootable/deprecated-ota
@@ -53,27 +53,26 @@ PRODUCT_ENABLE_UFFD_GC := true
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
-# Userdata
-PRODUCT_FS_COMPRESSION := 1
-
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio.service \
-    android.hardware.audio@7.0-impl \
-    android.hardware.audio.effect@7.0-impl \
-    android.hardware.audio.effect@6.0-impl \
-    android.hardware.soundtrigger@2.3-impl
+    android.hardware.audio@7.0-impl:32 \
+    android.hardware.audio.effect@7.0-impl:32 \
+    android.hardware.audio.effect@6.0-impl:32 \
+    android.hardware.soundtrigger@2.3-impl:32
 
 PRODUCT_PACKAGES += \
-    libaudiofoundation.vendor \
-    libalsautils \
-    libdynproc \
-    libhapticgenerator \
-    libopus.vendor \
-    libnbaio_mono \
-    libaudiospdif \
-    audio.usb.default \
-    audio_policy.stub
+    audio.primary.default:32 \
+    audio.r_submix.default:32 \
+    audio.usb.default:32 \
+    audio_policy.stub:32
+
+PRODUCT_PACKAGES += \
+    libaudiofoundation.vendor:32 \
+    libalsautils:32 \
+    libdynproc:32 \
+    libhapticgenerator:32 \
+    libopus.vendor:32 \
 
 # Audio configuration files
 PRODUCT_COPY_FILES += \
@@ -89,13 +88,13 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
 # Speaker
-$(call soong_config_set,android_hardware_audio,skip_speaker_layout_channel_mask_field,true)
+$(call soong_config_set_bool,android_hardware_audio,skip_speaker_layout_channel_mask_field,true)
 
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth-service.mediatek \
-    android.hardware.bluetooth.audio-impl \
-    audio.bluetooth.default
+    android.hardware.bluetooth.audio-impl:32 \
+    audio.bluetooth.default:32
 
 # Library Codec
 PRODUCT_PACKAGES += \
@@ -147,7 +146,7 @@ PRODUCT_PACKAGES += \
 
 # DRM
 PRODUCT_PACKAGES += \
-    com.android.hardware.drm.clearkey
+    android.hardware.drm@latest-service.clearkey
 
 # Graphics
 PRODUCT_PACKAGES += \
@@ -243,15 +242,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
     $(LOCAL_PATH)/configs/linker/linker.config.json
 
-# Keystore
-PRODUCT_PACKAGES += \
-    android.hardware.hardware_keystore.xml
-
 # Keymaster
 PRODUCT_PACKAGES += \
-    libkeymaster4support.vendor \
-    libsoft_attestation_cert.vendor \
-    libpuresoftkeymasterdevice.vendor
+    libkeymaster4support.vendor:64 \
+    libsoft_attestation_cert.vendor:64
 
 # MediaCodec
 PRODUCT_PACKAGES += \
@@ -264,6 +258,11 @@ PRODUCT_PACKAGES += \
     mtk_platform_codecs_config.xml \
     mtk_platform_codecs_whitelist.xml
 
+PRODUCT_PACKAGES += \
+    libstagefright_softomx_plugin.vendor
+
+$(call soong_config_set,stagefright,target_disables_thumbnail_block_model,true)
+
 # NFC
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.2-service \
@@ -275,12 +274,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/nfc_features.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/sku_nfc/nfc_features.xml
 
 # Overlays
-PRODUCT_PACKAGES += \
-    ApertureOverlaySalaa \
-    DialerOverlaySalaa \
-    ApertureQRScannerSalaa \
-    LineageSDKOverlaySalaa \
-    LineageSettingsOverlaySalaa
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-lineage
 
 PRODUCT_PACKAGES += \
     FrameworkResOverlaySalaa \
