@@ -5,7 +5,7 @@
 //
 
 runtime_resource_overlay {
-    name: "SettingsProviderOverlayRMX2156L1",
+    name: "FrameworkResOverlayRMX2155L1",
     resource_dirs: ["res"],
     vendor: true,
 }

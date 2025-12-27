@@ -167,12 +167,12 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
+    android.hardware.sensors@2.0-service-multihal.salaa \
+    android.hardware.sensors@2.0-subhal-impl-1.0:64 \
     vendor.lineage.oplus_als.service \
-    android.hardware.sensors@1.0-service \
-    android.hardware.sensors@1.0-impl \
-    sensors.dynamic_sensor_hal \
-    sensors.als_wrapper \
-    sensors.oplus_virtual
+    sensors.dynamic_sensor_hal:64 \
+    sensors.als_wrapper:64 \
+    sensors.oplus_virtual:64
 
 # Fastboot
 PRODUCT_PACKAGES += \
@@ -290,6 +290,11 @@ PRODUCT_PACKAGES += \
     OplusDozeOverlay
 
 PRODUCT_PACKAGES += \
+    FrameworkResOverlayRMX2151L1 \
+    FrameworkResOverlayRMX2155L1 \
+    FrameworkResOverlayRMX2156L1 \
+    FrameworkResOverlayRMX2161L1 \
+    FrameworkResOverlayRMX2163L1 \
     SettingsProviderOverlayRMX2151L1 \
     SettingsProviderOverlayRMX2155L1 \
     SettingsProviderOverlayRMX2156L1 \

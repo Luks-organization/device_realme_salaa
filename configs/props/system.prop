@@ -1,9 +1,6 @@
 # AEE
 ro.vendor.have_aee_feature=1
 
-# APK Verity
-ro.apk_verity.mode=2
-
 # Audio
 ro.audio.silent=0
 ro.audio.usb.period_us=16000
@@ -49,12 +46,6 @@ qemu.hw.mainkeys=0
 qemu.sf.lcd_density=440
 
 # HWUI
-#debug.hwui.skia_use_perfetto_track_events=false
-debug.hwui.render_dirty_regions=false
-debug.hwui.skia_tracing_enabled=false
-debug.hwui.target_cpu_time_percent=30
-debug.hwui.trace_gpu_resources=false
-debug.hwui.use_hint_manager=true
 ro.hwui.disable_sc=false
 ro.hwui.render_ahead=20
 
@@ -113,12 +104,9 @@ ro.mtk_gpu_optimizations=1
 ro.mtk_perf_dds_cpu=1
 
 # Media
-drm.service.enabled=true
 media.stagefright.thumbnail.prefer_hw_codecs=true
 persist.mm.enable.prefetch=true
 ro.min_pointer_dur=8
-debug.stagefright.c2inputsurface=-1
-debug.media.codec2=2
 
 # Storage
 persist.sys.fuse.passthrough.enable=true

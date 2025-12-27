@@ -54,6 +54,9 @@ on init
     write /dev/stune/rt/schedtune.prefer_idle 0
     write /dev/stune/top-app/schedtune.boost 1
 
+    # Enable suspend to RAM
+    write /sys/power/mem_sleep "deep"
+
 on enable-low-power
     write /proc/sys/kernel/sched_migration_cost_ns 200000
     write /proc/cpufreq/cpufreq_sched_disable 0

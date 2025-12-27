@@ -4,12 +4,12 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.settingsprovider.overlay.RMX2156L1">
+    package="com.android.frameworkres.overlay.RMX2161L1">
 
     <overlay
-        android:targetPackage="com.android.providers.settings"
+        android:targetPackage="android"
         android:requiredSystemPropertyName="ro.vendor.device"
-        android:requiredSystemPropertyValue="RMX2156L1"
+        android:requiredSystemPropertyValue="RMX2161L1"
         android:isStatic="true"
         android:priority="1"/>
 </manifest>

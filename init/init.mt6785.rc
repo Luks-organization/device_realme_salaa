@@ -868,15 +868,11 @@ on property:sys.boot_completed=1
     write /sys/kernel/mm/swap/vma_ra_enabled false
     swapon_all /vendor/etc/fstab.mt6785
 
-    # Enable suspend to RAM
-    write /sys/power/mem_sleep "deep"
-
-    # C2 codec
-    restart android-hardware-media-c2-hal-1-2
-    restart vendor-dolby-media-c2-hal-1-0
-
     chown system system /sys/devices/system/cpu/cpufreq/mtk/lcluster_min_freq
     chmod 0664 /sys/devices/system/cpu/cpufreq/mtk/lcluster_min_freq
+
+    restart android-hardware-media-c2-hal-1-2
+    restart vendor-dolby-media-c2-hal-1-0
 
 # Disable AOSP RIL if MTK RIL is up
 on property:vendor.ril.mtk=1
@@ -939,3 +935,16 @@ on property:sys.boot_completed=1 && property:ro.boot.atm=enable
 # reset mdmode when modem crash happens in ATM
 on property:vendor.mtk.md1.status=reset
     setprop persist.vendor.atm.mdmode normal
+
+service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
+    override
+    class hal
+    user audioserver
+    # media gid needed for /dev/fm (radio) and for /data/misc/media (tee)
+    group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct oem_2901 wakelock context_hub system
+    capabilities BLOCK_SUSPEND SYS_NICE
+    # setting RLIMIT_RTPRIO allows binder RT priority inheritance
+    rlimit rtprio 10 10
+    ioprio rt 4
+    writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
+    onrestart restart audioserver
