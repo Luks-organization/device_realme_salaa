@@ -1,26 +1,35 @@
 # Camera
 NA                                               u:object_r:exported_system_prop:s0
-oplus.camera.                                    u:object_r:exported_system_prop:s0
+demo.hole                                        u:object_r:exported_system_prop:s0
+demo.near                                        u:object_r:exported_system_prop:s0
+demo.far                                         u:object_r:exported_system_prop:s0
+demo.fb                                          u:object_r:exported_system_prop:s0
 oplus.switch.                                    u:object_r:exported_system_prop:s0
+oplus.CTP.Tunningmode                            u:object_r:exported_system_prop:s0
 persist.sys.camera.lao.enable                    u:object_r:exported_system_prop:s0
-demo.                                            u:object_r:exported_system_prop:s0
-ro.oplus.system.camera.                          u:object_r:exported_system_prop:s0
+sys.oppo_ftm_mode                                u:object_r:exported_system_prop:s0
 sys.multiwin_for_camera                          u:object_r:exported_system_prop:s0
+persist.sys.camera.log.                          u:object_r:exported_system_prop:s0
+oplus.debug.nvram.enable                         u:object_r:exported_system_prop:s0
+persist.camera.                                  u:object_r:exported_system_prop:s0
+ro.camera.                                       u:object_r:system_oplus_camera_prop:s0
+ro.oppo.                                         u:object_r:system_oplus_camera_prop:s0
+ro.oplus.camera.                                 u:object_r:system_oplus_camera_prop:s0
+ro.oplus.system.camera.                          u:object_r:system_oplus_camera_prop:s0
+oplus.camera.                                    u:object_r:system_oplus_camera_prop:s0
 
 # Version
 ro.build.release_type                            u:object_r:exported_system_prop:s0
-ro.hardware.chipname                             u:object_r:exported_system_prop:s0
-ro.version.confidential                          u:object_r:exported_default_prop:s0
+ro.version.confidential                          u:object_r:exported_system_prop:s0
+ro.hardware.chipname                             u:object_r:exported_default_prop:s0
 
 # Audio
 audio.tuning.def_path                            u:object_r:system_oplus_audio_prop:s0
 sys.oplus.mm.                                    u:object_r:system_oplus_audio_prop:s0
-ro.mtk_audenh_support                            u:object_r:system_oplus_audio_prop:s0
-ro.mtk_audio_lossless_support                    u:object_r:system_oplus_audio_prop:s0
-ro.mtk_besloudness_support                       u:object_r:system_oplus_audio_prop:s0
 
 # Display
 persist.sys.enable_sf_hwc_backpressure           u:object_r:exported_system_prop:s0
+persist.sys.oppo.                                u:object_r:exported_system_prop:s0
 
 # Bluetooth
 bluetooth.device_id.vendor_id                    u:object_r:exported_bluetooth_prop:s0
@@ -28,28 +37,18 @@ persist.bluetooth.a2dp_aac_abr.enable            u:object_r:exported_bluetooth_p
 persist.bluetooth.enable_power_stats             u:object_r:exported_bluetooth_prop:s0
 persist.sys.bt.a2dp.pendingtime                  u:object_r:exported_system_prop:s0
 
-# GPS
-ro.oplus.mtk_gps_L1L5                            u:object_r:exported_system_prop:s0
-ro.oplus.mtk_gps_mpe                             u:object_r:exported_system_prop:s0
-
 # Mtk Camera
 ro.mtk_cam.mfb.ultimate                          u:object_r:system_mtk_camera_prop:s0
 ro.mtk_cam_dualzoom_support                      u:object_r:system_mtk_camera_prop:s0
 ro.mtk_cam_stereo_camera_support                 u:object_r:system_mtk_camera_prop:s0
 
 # Oplus
-ro.separate.soft                                 u:object_r:system_oplus_project_prop:s0
-ro.vendor.oplus.sensor.                          u:object_r:system_oplus_project_prop:s0
-ro.vendor.oplus.aal.                             u:object_r:system_oplus_project_prop:s0
+ro.product.hw                                    u:object_r:system_oplus_project_prop:s0
 ro.product.marketname                            u:object_r:system_oplus_project_prop:s0
 ro.oplus.market.name                             u:object_r:system_oplus_project_prop:s0
 ro.oplus.version.                                u:object_r:system_oplus_project_prop:s0
 ro.oplus.image.                                  u:object_r:system_oplus_project_prop:s0
-ro.build.version.svn                             u:object_r:system_oplus_project_prop:s0
-ro.build.version.svn.c                           u:object_r:system_oplus_project_prop:s0
-ro.build.version.ota                             u:object_r:system_oplus_project_prop:s0
-ro.product.hw                                    u:object_r:system_oplus_project_prop:s0
-oplus.debug.nvram.                               u:object_r:system_oplus_project_prop:s0
+ro.separate.soft                                 u:object_r:system_oplus_project_prop:s0
 
 # Fingerprint
 oplus.fingerprint.                               u:object_r:system_fingerprint_prop:s0
@@ -67,6 +66,8 @@ persist.oplus.network.                           u:object_r:exported_system_prop
 
 # Als Sensors
 vendor.sensors.als_correction.                   u:object_r:system_sensors_als_prop:s0
+ro.vendor.oplus.sensor.                          u:object_r:system_sensors_als_prop:s0
+ro.vendor.oplus.aal.                             u:object_r:system_sensors_als_prop:s0
 
 # Realme Parts
 persist.cabc_profile                             u:object_r:system_cabc_prop:s0

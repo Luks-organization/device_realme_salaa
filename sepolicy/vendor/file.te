@@ -5,8 +5,9 @@ type aw87xxx_audio, fs_type, sysfs_type;
 # Camera
 type vendor_proc_flash, fs_type, proc_type;
 type proc_boost_pool, fs_type, proc_type;
-type vendor_camera_data_file, data_file_type, file_type;
-type persist_camera_data_file, data_file_type, file_type;
+type vendor_camera_data_file, file_type, data_file_type;
+type persist_camera_file, file_type;
+type persist_engineer_file, file_type;
 
 # Charging
 type vendor_sysfs_ac_supply, fs_type, sysfs_type;
@@ -16,6 +17,7 @@ type vendor_proc_charger, fs_type, proc_type;
 type vendor_proc_tbatt_pwroff, fs_type, proc_type;
 type vendor_proc_wireless, fs_type, proc_type;
 type vendor_proc_oplus_fastchg, fs_type, proc_type;
+type vendor_firmware_file, vendor_file_type, file_type;
 type sysfs_chargelevel, fs_type, sysfs_type;
 
 # Display

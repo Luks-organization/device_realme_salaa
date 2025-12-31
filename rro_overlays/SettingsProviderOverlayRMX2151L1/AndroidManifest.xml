@@ -8,7 +8,7 @@
 
     <overlay
         android:targetPackage="com.android.providers.settings"
-        android:requiredSystemPropertyName="ro.product.device"
+        android:requiredSystemPropertyName="ro.vendor.device"
         android:requiredSystemPropertyValue="RMX2151L1"
         android:isStatic="true"
         android:priority="1"/>

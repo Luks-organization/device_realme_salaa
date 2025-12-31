@@ -15,10 +15,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
 # Dynamic Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
-PRODUCT_BUILD_SUPER_PARTITION ?= false
 
 # OTA package
 AB_OTA_UPDATER := false
+PRODUCT_VIRTUAL_AB_OTA := false
 
 PRODUCT_SOONG_NAMESPACES += \
     bootable/deprecated-ota
@@ -39,13 +39,19 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi
 
 # Dex compiler
-PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := speed-profile
+PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := everything
+PRODUCT_DEX_PREOPT_GENERATE_DM_FILES := true
+
+# Speed profile services and wifi-service to reduce RAM and storage
+PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
+PRODUCT_SYSTEM_SERVER_DEBUG_INFO := false
+PRODUCT_OTHER_JAVA_DEBUG_INFO := false
 
 # Dex pre-opt
 WITH_DEXPREOPT := true
-DEX_PREOPT_DEFAULT := generate-vdex-and-image
 WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
 WITH_DEXPREOPT_DEBUG_INFO := false
+DEX_PREOPT_DEFAULT := generate-vdex-and-image
 DONT_DEXPREOPT_PREBUILTS := true
 
 # Kernel
@@ -53,27 +59,26 @@ PRODUCT_ENABLE_UFFD_GC := true
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
-# Userdata
-PRODUCT_FS_COMPRESSION := 1
-
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio.service \
-    android.hardware.audio@7.0-impl \
-    android.hardware.audio.effect@7.0-impl \
-    android.hardware.audio.effect@6.0-impl \
-    android.hardware.soundtrigger@2.3-impl
+    android.hardware.audio@7.0-impl:32 \
+    android.hardware.audio.effect@7.0-impl:32 \
+    android.hardware.audio.effect@6.0-impl:32 \
+    android.hardware.soundtrigger@2.3-impl:32
 
 PRODUCT_PACKAGES += \
-    libaudiofoundation.vendor \
-    libalsautils \
-    libdynproc \
-    libhapticgenerator \
-    libopus.vendor \
-    libnbaio_mono \
-    libaudiospdif \
-    audio.usb.default \
-    audio_policy.stub
+    audio.primary.default:32 \
+    audio.r_submix.default:32 \
+    audio.usb.default:32 \
+    audio_policy.stub:32
+
+PRODUCT_PACKAGES += \
+    libaudiofoundation.vendor:32 \
+    libalsautils:32 \
+    libdynproc:32 \
+    libhapticgenerator:32 \
+    libopus.vendor:32 \
 
 # Audio configuration files
 PRODUCT_COPY_FILES += \
@@ -89,13 +94,13 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
 # Speaker
-$(call soong_config_set,android_hardware_audio,skip_speaker_layout_channel_mask_field,true)
+$(call soong_config_set_bool,android_hardware_audio,skip_speaker_layout_channel_mask_field,true)
 
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth-service.mediatek \
-    android.hardware.bluetooth.audio-impl \
-    audio.bluetooth.default
+    android.hardware.bluetooth.audio-impl:32 \
+    audio.bluetooth.default:32
 
 # Library Codec
 PRODUCT_PACKAGES += \
@@ -116,8 +121,8 @@ $(call inherit-product, packages/apps/ViperFX/config.mk)
     #RealmeParts
 
 # Dplus
-PRODUCT_PACKAGES += \
-    OplusDeviceService
+#PRODUCT_PACKAGES += \
+    #OplusDeviceService
 
 # Doze
 PRODUCT_PACKAGES += \
@@ -147,7 +152,7 @@ PRODUCT_PACKAGES += \
 
 # DRM
 PRODUCT_PACKAGES += \
-    com.android.hardware.drm.clearkey
+    android.hardware.drm@latest-service.clearkey
 
 # Graphics
 PRODUCT_PACKAGES += \
@@ -168,12 +173,12 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
+    android.hardware.sensors@2.0-service-multihal.salaa \
+    android.hardware.sensors@2.0-subhal-impl-1.0:64 \
     vendor.lineage.oplus_als.service \
-    android.hardware.sensors@1.0-service \
-    android.hardware.sensors@1.0-impl \
-    sensors.dynamic_sensor_hal \
-    sensors.als_wrapper \
-    sensors.oplus_virtual
+    sensors.dynamic_sensor_hal:64 \
+    sensors.als_wrapper:64 \
+    sensors.oplus_virtual:64
 
 # Fastboot
 PRODUCT_PACKAGES += \
@@ -243,15 +248,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
     $(LOCAL_PATH)/configs/linker/linker.config.json
 
-# Keystore
-PRODUCT_PACKAGES += \
-    android.hardware.hardware_keystore.xml
-
 # Keymaster
 PRODUCT_PACKAGES += \
-    libkeymaster4support.vendor \
-    libsoft_attestation_cert.vendor \
-    libpuresoftkeymasterdevice.vendor
+    libkeymaster4support.vendor:64 \
+    libsoft_attestation_cert.vendor:64
 
 # MediaCodec
 PRODUCT_PACKAGES += \
@@ -264,6 +264,11 @@ PRODUCT_PACKAGES += \
     mtk_platform_codecs_config.xml \
     mtk_platform_codecs_whitelist.xml
 
+PRODUCT_PACKAGES += \
+    libstagefright_softomx_plugin.vendor
+
+$(call soong_config_set,stagefright,target_disables_thumbnail_block_model,true)
+
 # NFC
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.2-service \
@@ -275,12 +280,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/nfc_features.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/sku_nfc/nfc_features.xml
 
 # Overlays
-PRODUCT_PACKAGES += \
-    ApertureOverlaySalaa \
-    DialerOverlaySalaa \
-    ApertureQRScannerSalaa \
-    LineageSDKOverlaySalaa \
-    LineageSettingsOverlaySalaa
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-lineage
 
 PRODUCT_PACKAGES += \
     FrameworkResOverlaySalaa \
@@ -294,6 +296,11 @@ PRODUCT_PACKAGES += \
     OplusDozeOverlay
 
 PRODUCT_PACKAGES += \
+    FrameworkResOverlayRMX2151L1 \
+    FrameworkResOverlayRMX2155L1 \
+    FrameworkResOverlayRMX2156L1 \
+    FrameworkResOverlayRMX2161L1 \
+    FrameworkResOverlayRMX2163L1 \
     SettingsProviderOverlayRMX2151L1 \
     SettingsProviderOverlayRMX2155L1 \
     SettingsProviderOverlayRMX2156L1 \
@@ -308,13 +315,6 @@ $(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH):libinit_salaa)
 
 # Permission
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/public.libraries/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt \
-    $(LOCAL_PATH)/configs/public.libraries/public.libraries-trustonic.txt:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/public.libraries-trustonic.txt \
-    $(LOCAL_PATH)/configs/permissions/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml \
-    $(LOCAL_PATH)/configs/permissions/privapp-permissions-xhotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-xhotword.xml \
-    $(LOCAL_PATH)/configs/permissions/privapp-permissions-com.mediatek.engineermode.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-com.mediatek.engineermode.xml \
-    $(LOCAL_PATH)/configs/permissions/com.android.hotwordenrollment.common.util.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/com.android.hotwordenrollment.common.util.xml \
-    $(LOCAL_PATH)/configs/permissions/com.mediatek.hardware.vow_dsp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.mediatek.hardware.vow_dsp.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.audio.pro.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.pro.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
@@ -370,6 +370,21 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.xr.input.hand_tracking.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.xr.input.hand_tracking.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml
+
+# Hotword Enrollment
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/permissions/hiddenapi-package-allowlist-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/hotword-hiddenapi-package-allowlist.xml \
+    $(LOCAL_PATH)/configs/permissions/privapp-permissions-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml
+
+# Mediatek
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/permissions/privapp-permissions-com.mediatek.engineermode.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-com.mediatek.engineermode.xml \
+    $(LOCAL_PATH)/configs/permissions/com.mediatek.hardware.vow_dsp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.mediatek.hardware.vow_dsp.xml
+
+# Public
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/public.libraries/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt \
+    $(LOCAL_PATH)/configs/public.libraries/public.libraries-trustonic.txt:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/public.libraries-trustonic.txt
 
 # Power
 PRODUCT_PACKAGES += \

@@ -18,8 +18,8 @@ vendor.oplus.hardware.commondcs::ICommonDcsHalService                         u:
 vendor.oplus.hardware.biometrics.fingerprint::IBiometricsFingerprint          u:object_r:hal_fingerprint_oplus_hwservice:s0
 
 # Orms
-vendor.oplus.hardware.orms.ormsHalService::IOrmsHalService                    u:object_r:oplus_hal_ormsHal_hwservice:s0
-vendor.oplus.hardware.orms::IOrmsHalProxy                                     u:object_r:oplus_hal_ormsHal_hwservice:s0
+vendor.oplus.hardware.orms.ormsHalService::IOrmsHalService                    u:object_r:hal_orms_oplus_hwservice:s0
+vendor.oplus.hardware.orms::IOrmsHalProxy                                     u:object_r:hal_orms_oplus_hwservice:s0
 
 # Performance
 vendor.oplus.hardware.performance::IPerformance                               u:object_r:hal_performance_oplus_hwservice:s0

@@ -8,10 +8,11 @@ persist.vendor.audiohal.pcm_mixer_dump_on    u:object_r:vendor_audio_tuning_prop
 vendor.audiomediatek.                        u:object_r:vendor_audioserver_prop:s0
 
 # Camera
-persist.vendor.camera.privapp.list           u:object_r:vendor_mtk_camera_prop:s0
-vendor.camera.vm.parameters                  u:object_r:vendor_mtk_camera_prop:s0
-vendor.oplus.                                u:object_r:vendor_mtk_camera_prop:s0
-vendor.oppo.                                 u:object_r:vendor_mtk_camera_prop:s0
+ro.vendor.oplus.camera.                      u:object_r:vendor_oplus_camera_prop:s0
+vendor.camera.vm.parameters                  u:object_r:vendor_oplus_camera_prop:s0
+vendor.oplus.                                u:object_r:vendor_oplus_camera_prop:s0
+vendor.oppo.                                 u:object_r:vendor_oplus_camera_prop:s0
+vendor.camera.                               u:object_r:vendor_mtk_camera_prop:s0
 
 # Fingerprint
 persist.vendor.fingerprint.                  u:object_r:vendor_fingerprint_prop:s0

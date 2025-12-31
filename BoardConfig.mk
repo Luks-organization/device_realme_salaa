@@ -14,8 +14,7 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-2a-dotprod
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
-TARGET_CPU_VARIANT_RUNTIME := cortex-a76
+TARGET_CPU_VARIANT := cortex-a76
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-2a
@@ -23,6 +22,15 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
+
+# Enable 64-bit for non-zygote.
+ZYGOTE_FORCE_64 := true
+
+# Include 64-bit mediaserver to support 64-bit only devices
+TARGET_DYNAMIC_64_32_MEDIASERVER := true
+
+# Include 64-bit drmserver to support 64-bit only devices
+TARGET_DYNAMIC_64_32_DRMSERVER := true
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := RMX2151,RMX2151L1,RMX2155,RMX2155L1,RMX2156,RMX2156L1,RMX2161,RMX2161L1,RMX2163,RMX2163L1,salaa
@@ -34,35 +42,30 @@ TARGET_BOARD_PLATFORM_GPU := mali-g76mc4
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := RM6785
 TARGET_NO_BOOTLOADER := true
-TARGET_USES_UEFI := true
 
 # Audio
-USE_CUSTOM_AUDIO_POLICY := 1
-BOARD_USES_ALSA_AUDIO := true
 TARGET_PROVIDES_AUDIO_EXTNS := true
 TARGET_EXCLUDES_AUDIOFX := true
 
 # Graphics
-BOARD_EGL_CFG := $(DEVICE_PATH)/configs/graphics/egl.cfg
-TARGET_USES_VULKAN := true
+TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS := 0x2000U
+
+# HWUI
 HWUI_COMPILE_FOR_PERF := true
 
 # Display
 TARGET_SCREEN_DENSITY := 440
 
-# TEE
-BOARD_TEE_VARIANT ?= trustonic
-
 # FM
 BOARD_HAVE_MTK_FM := true
 
 # ART
-#ifeq ($(TARGET_BUILD_VARIANT),user)
-#ART_BUILD_TARGET_NDEBUG := true
-#ART_BUILD_TARGET_DEBUG := false
-#ART_BUILD_HOST_NDEBUG := true
-#ART_BUILD_HOST_DEBUG := false
-#endif
+ifeq ($(TARGET_BUILD_VARIANT),user)
+ART_BUILD_TARGET_NDEBUG := true
+ART_BUILD_TARGET_DEBUG := false
+ART_BUILD_HOST_NDEBUG := true
+ART_BUILD_HOST_DEBUG := false
+endif
 
 # Kernel Configuration
 BOARD_KERNEL_BASE := 0x40078000
@@ -80,7 +83,6 @@ BOARD_RAMDISK_USE_LZ4 := true
 # Kernel Command Line
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
 BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
-BOARD_KERNEL_CMDLINE += init_on_alloc=1
 
 # mkbootimg Arguments
 BOARD_MKBOOTIMG_ARGS := --base $(BOARD_KERNEL_BASE)
@@ -96,16 +98,13 @@ BOARD_MKBOOTIMG_ARGS += --board ""
 # Kernel Build Settings
 TARGET_KERNEL_SOURCE := kernel/realme/mt6785
 TARGET_KERNEL_CONFIG := salaa_defconfig
+TARGET_KERNEL_CLANG_VERSION := r563880
+TARGET_KERNEL_ADDITIONAL_FLAGS := DTC_EXT=$(shell pwd)/prebuilts/misc/linux-x86/dtc/dtc LLVM=1
 TARGET_KERNEL_NO_GCC := true
 
 BOARD_KERNEL_IMAGE_NAME := Image.gz
 BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_KERNEL_SEPARATED_DTBO := true
-
-# Global LTO
-TARGET_GLOBAL_LTO := thin
-TARGET_GLOBAL_OPTIMIZATION := O3
-TARGET_GLOBAL_THINLTO := true
 
 # Partition Sizes
 BOARD_FLASH_BLOCK_SIZE := 131072                   # 128 KB
@@ -113,31 +112,34 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432         # 32 MB
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 102760448    # ~98 MB
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608            # 8 MB
 BOARD_CACHEIMAGE_PARTITION_SIZE := 452984832       # ~432 MB
-BOARD_SUPER_PARTITION_SIZE := 8053063680           # ~7.5 GB
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
-
--include vendor/lineage/config/BoardConfigReservedSize.mk
+TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_PRODUCT := product
+TARGET_COPY_OUT_ODM := odm
+TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 
 # Dynamic Partitions Configuration
+BOARD_SUPER_PARTITION_SIZE := 8053063680           # ~7.5 GB
 BOARD_SUPER_PARTITION_GROUPS := main
-BOARD_MAIN_SIZE := 8048869376 # (8053063680 - 4194304)
+BOARD_MAIN_SIZE := 8048869376                      # (8053063680 - 4194304)
 BOARD_MAIN_PARTITION_LIST := odm product system system_ext vendor
 
-# Erofs compression
-BOARD_EROFS_COMPRESSOR := lz4
-BOARD_EROFS_PCLUSTER_SIZE := 262144
+# File System Configuration
+TARGET_RO_FILE_SYSTEM_TYPE ?= ext4
 
-# Filesystem
-BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
+ifeq ($(TARGET_RO_FILE_SYSTEM_TYPE),erofs)
+    BOARD_EROFS_COMPRESSOR := lz4
+    BOARD_EROFS_PCLUSTER_SIZE := 262144
+endif
 
-TARGET_COPY_OUT_ODM := odm
-TARGET_COPY_OUT_PRODUCT := product
-TARGET_COPY_OUT_SYSTEM_EXT := system_ext
-TARGET_COPY_OUT_VENDOR := vendor
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
+BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
+
+# Reserve Size
+-include vendor/lineage/config/BoardConfigReservedSize.mk
 
 # Metadata
 BOARD_USES_METADATA_PARTITION := true
@@ -201,12 +203,13 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
 # VINTF
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-    $(DEVICE_PATH)/configs/vintf/device_framework_compatibility_matrix.xml \
-    hardware/mediatek/vintf/mediatek_framework_compatibility_matrix.xml
-
 DEVICE_MATRIX_FILE += $(DEVICE_PATH)/configs/vintf/compatibility_matrix.xml
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/vintf/manifest.xml
+
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    $(DEVICE_PATH)/configs/vintf/device_framework_matrix.xml \
+    $(DEVICE_PATH)/configs/vintf/framework_compatibility_matrix.xml \
+    hardware/mediatek/vintf/mediatek_framework_compatibility_matrix.xml
 
 # SELinux
 include device/mediatek/sepolicy_vndr/SEPolicy.mk

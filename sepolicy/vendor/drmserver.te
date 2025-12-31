@@ -1,2 +1,1 @@
-allow drmserver same_process_hal_file:file r_file_perms;
-allow drmserver same_process_hal_file:file execute;
+allow drmserver same_process_hal_file:file { read open map getattr execute };

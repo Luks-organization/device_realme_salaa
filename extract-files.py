@@ -83,7 +83,7 @@ blob_fixups: blob_fixups_user_type = {
        .regex_replace('NFC_DEBUG_ENABLED=0x01', 'NFC_DEBUG_ENABLED=0x00'),
     ('vendor/lib64/libSQLiteModule_VER_ALL.so', 'vendor/lib64/lib3a.flash.so'): blob_fixup()
        .add_needed('liblog.so'),
-    ('vendor/lib/hw/audio.primary.mt6785.so', 'vendor/lib64/hw/audio.primary.mt6785.so'): blob_fixup()
+    'vendor/lib/hw/audio.primary.mt6785.so': blob_fixup()
        .replace_needed('libalsautils.so', 'libalsautils-v31.so')
        .add_needed('libstagefright_foundation-v33.so'),
     (
@@ -158,7 +158,7 @@ blob_fixups: blob_fixups_user_type = {
 module = ExtractUtilsModule(
     'salaa',
     'realme',
-    blob_fixups=blob_fixups,
+    #blob_fixups=blob_fixups,
     lib_fixups=lib_fixups,
     namespace_imports=namespace_imports,
     add_firmware_proprietary_file=True,
