@@ -26,14 +26,13 @@ allow vendor_init mtk_radio_device:lnk_file unlink;
 allow vendor_init mtk_hal_videotelephony_hwservice:hwservice_manager find;
 allow vendor_init nfc_data_vendor_file:dir { r_dir_perms create_dir_perms };
 get_prop(vendor_init, system_oplus_project_prop)
+get_prop(vendor_init, system_cabc_prop)
 get_prop(vendor_init, vendor_variant_prop)
 get_prop(vendor_init, vendor_default_prop)
 get_prop(vendor_init, vts_status_prop)
 get_prop(vendor_init, wifi_hal_prop)
 
-set_prop(vendor_init, system_oplus_project_prop)
 set_prop(vendor_init, system_sensors_als_prop)
-set_prop(vendor_init, vendor_audioserver_prop)
 set_prop(vendor_init, vendor_persist_light_prop)
 set_prop(vendor_init, vendor_oplus_touch_prop)
 set_prop(vendor_init, vendor_oplus_radio_prop)

@@ -30,7 +30,6 @@
 #include <fs_mgr_dm_linear.h>
 
 using android::base::ReadFileToString;
-using android::base::Trim;
 using std::string;
 
 std::vector<string> ro_props_default_source_order = {
@@ -76,27 +75,31 @@ void load_dalvik_properties(void) {
 
     sysinfo(&sys);
 
-    if (sys.totalram >= 7ull * 1024 * 1024 * 1024) {
+    if (sys.totalram >= 7ull * 1024 * 1024) { // 8GB
+        // from - phone-xhdpi-8192-dalvik-heap.mk
         heapstartsize = "24m";
         heapgrowthlimit = "256m";
         heapsize = "512m";
         heaptargetutilization = "0.46";
         heapminfree = "8m";
         heapmaxfree = "48m";
-    } else if (sys.totalram >= 5ull * 1024 * 1024 * 1024) {
+    } else if (sys.totalram >= 5ull * 1024 * 1024) { // 6GB
+        // from - phone-xhdpi-6144-dalvik-heap.mk
         heapstartsize = "16m";
         heapgrowthlimit = "256m";
         heapsize = "512m";
         heaptargetutilization = "0.5";
         heapminfree = "8m";
         heapmaxfree = "32m";
-    } else {
+    } else if (sys.totalram >= 3ull * 1024 * 1024) { // 4GB
         heapstartsize = "8m";
         heapgrowthlimit = "192m";
         heapsize = "512m";
         heaptargetutilization = "0.6";
         heapminfree = "8m";
         heapmaxfree = "16m";
+    } else {
+        return;
     }
 
     property_override("dalvik.vm.heapstartsize", heapstartsize);

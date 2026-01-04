@@ -1,2 +1,3 @@
+typeattribute dex2oat mlstrustedsubject;
 allow dex2oat system_data_file:dir search;
 rw_dir_file(dex2oat, dalvikcache_data_file)

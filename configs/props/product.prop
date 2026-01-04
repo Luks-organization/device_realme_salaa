@@ -40,6 +40,11 @@ persist.bluetooth.leaudio_offload.disabled=false
 ro.bluetooth.a2dp_offload.supported=true
 ro.bluetooth.leaudio_offload.supported=true
 
+# RKPD
+remote_provisioning.enable_rkpd=true
+remote_provisioning.hostname=remoteprovisioning.googleapis.com
+remote_provisioning.connect_timeout_millis=2000
+
 # Radio FM
 ro.fm.band=1
 ro.fm.chip=0x6631

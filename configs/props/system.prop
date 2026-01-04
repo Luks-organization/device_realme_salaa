@@ -11,9 +11,6 @@ ro.mtk_audenh_support=1
 ro.mtk_audio_lossless_support=1
 ro.mtk_besloudness_support=1
 
-# Brand
-Build.BRAND=MTK
-
 # Camera
 persist.camera.HAL3.enabled=1
 persist.camera.eis.enable=1
@@ -30,10 +27,7 @@ ro.mtk_cam_stereo_camera_support=1
 
 # Dex2oat
 persist.bg.dexopt.enable=true
-pm.dexopt.install=everything
-
-# Dalvik
-dalvik.vm.dex2oat64.enabled=true
+pm.dexopt.install=speed-profile
 
 # HWUI
 ro.hwui.disable_sc=false

@@ -4,8 +4,3 @@ allow init oplus_block_device:lnk_file relabelto;
 allow init hal_dms_default:process { siginh rlimitinh transition };
 allow init hal_fingerprint_default:process ptrace;
 get_prop(init, vendor_variant_prop)
-get_prop(init, system_cabc_prop)
-get_prop(init, system_oplus_project_prop)
-set_prop(init, system_oplus_project_prop)
-set_prop(init, system_mtk_camera_prop)
-set_prop(init, system_oplus_camera_prop)

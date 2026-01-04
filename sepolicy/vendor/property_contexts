@@ -3,9 +3,7 @@ persist.vendor.audio.tuning.def_path         u:object_r:vendor_audio_tuning_prop
 persist.vendor.audiohal.aurisys.pcm_dump_on  u:object_r:vendor_audio_tuning_prop:s0
 persist.vendor.audiohal.p2w_dump_on          u:object_r:vendor_audio_tuning_prop:s0
 persist.vendor.audiohal.pcm_mixer_dump_on    u:object_r:vendor_audio_tuning_prop:s0
-
-# Audioserver
-vendor.audiomediatek.                        u:object_r:vendor_audioserver_prop:s0
+vendor.audiomediatek.                        u:object_r:vendor_mtk_audio_prop:s0
 
 # Camera
 ro.vendor.oplus.camera.                      u:object_r:vendor_oplus_camera_prop:s0

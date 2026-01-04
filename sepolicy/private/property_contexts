@@ -11,7 +11,6 @@ sys.oppo_ftm_mode                                u:object_r:exported_system_prop
 sys.multiwin_for_camera                          u:object_r:exported_system_prop:s0
 persist.sys.camera.log.                          u:object_r:exported_system_prop:s0
 oplus.debug.nvram.enable                         u:object_r:exported_system_prop:s0
-persist.camera.                                  u:object_r:exported_system_prop:s0
 ro.camera.                                       u:object_r:system_oplus_camera_prop:s0
 ro.oppo.                                         u:object_r:system_oplus_camera_prop:s0
 ro.oplus.camera.                                 u:object_r:system_oplus_camera_prop:s0
@@ -41,6 +40,7 @@ persist.sys.bt.a2dp.pendingtime                  u:object_r:exported_system_prop
 ro.mtk_cam.mfb.ultimate                          u:object_r:system_mtk_camera_prop:s0
 ro.mtk_cam_dualzoom_support                      u:object_r:system_mtk_camera_prop:s0
 ro.mtk_cam_stereo_camera_support                 u:object_r:system_mtk_camera_prop:s0
+persist.camera.                                  u:object_r:system_mtk_camera_prop:s0
 
 # Oplus
 ro.product.hw                                    u:object_r:system_oplus_project_prop:s0
@@ -57,7 +57,6 @@ oplus.goodix.fp                                  u:object_r:system_fingerprint_p
 gf.debug.                                        u:object_r:system_fingerprint_prop:s0
 
 # Logging
-persist.camera.assert.panic                      u:object_r:exported_system_prop:s0
 persist.sys.assert.panic                         u:object_r:exported_system_prop:s0
 
 # Modem
